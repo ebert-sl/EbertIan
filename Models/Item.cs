@@ -10,6 +10,7 @@ namespace EbertIan.Models
     public class Item
     {
         public int Id {get; set;}
+        
         [Display(Name = "Preço")]
         public double Preco {get; set;}
         public int Percentual {get; set;}
@@ -22,6 +23,6 @@ namespace EbertIan.Models
 
         [ForeignKey("Produto")]
         public int ProdutoId {get; set;}
-        public Produto Produto {get; set;}
+        public Produto? Produto {get; set;}
     }
 }

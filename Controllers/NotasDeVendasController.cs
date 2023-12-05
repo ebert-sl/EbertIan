@@ -22,7 +22,7 @@ namespace EbertIan.Controllers
         // GET: NotasDeVendas
         public async Task<IActionResult> Index()
         {
-            var myDbContext = _context.NotasDeVendas.Include(n => n.Cliente).Include(n => n.PagamentoComCartao).Include(n => n.PagamentoComCheque).Include(n => n.Transportadora).Include(n => n.Vendedor);
+            var myDbContext = _context.NotasDeVendas.Include(n => n.Cliente).Include(n => n.TipoDePagamento).Include(n => n.Transportadora).Include(n => n.Vendedor);
             return View(await myDbContext.ToListAsync());
         }
 
@@ -36,8 +36,7 @@ namespace EbertIan.Controllers
 
             var notaDeVenda = await _context.NotasDeVendas
                 .Include(n => n.Cliente)
-                .Include(n => n.PagamentoComCartao)
-                .Include(n => n.PagamentoComCheque)
+                .Include(n => n.TipoDePagamento)
                 .Include(n => n.Transportadora)
                 .Include(n => n.Vendedor)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -53,8 +52,7 @@ namespace EbertIan.Controllers
         public IActionResult Create()
         {
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Id");
-            ViewData["PagamentoComCartaoId"] = new SelectList(_context.PagamentosComCartao, "Id", "Id");
-            ViewData["PagamentoComChequeId"] = new SelectList(_context.PagamentosComCheque, "Id", "Id");
+            ViewData["TipoDePagamentoId"] = new SelectList(_context.TiposDePagamento, "Id", "Id");
             ViewData["TransportadoraId"] = new SelectList(_context.Transportadoras, "Id", "Id");
             ViewData["VendedorId"] = new SelectList(_context.Vendedores, "Id", "Id");
             return View();
@@ -65,7 +63,7 @@ namespace EbertIan.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Data,Tipo,ClienteId,VendedorId,TransportadoraId,PagamentoComChequeId,PagamentoComCartaoId")] NotaDeVenda notaDeVenda)
+        public async Task<IActionResult> Create([Bind("Id,Data,Status,ClienteId,VendedorId,TransportadoraId,TipoDePagamentoId")] NotaDeVenda notaDeVenda)
         {
             if (ModelState.IsValid)
             {
@@ -74,8 +72,7 @@ namespace EbertIan.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Id", notaDeVenda.ClienteId);
-            ViewData["PagamentoComCartaoId"] = new SelectList(_context.PagamentosComCartao, "Id", "Id", notaDeVenda.PagamentoComCartaoId);
-            ViewData["PagamentoComChequeId"] = new SelectList(_context.PagamentosComCheque, "Id", "Id", notaDeVenda.PagamentoComChequeId);
+            ViewData["TipoDePagamentoId"] = new SelectList(_context.TiposDePagamento, "Id", "Id", notaDeVenda.TipoDePagamentoId);
             ViewData["TransportadoraId"] = new SelectList(_context.Transportadoras, "Id", "Id", notaDeVenda.TransportadoraId);
             ViewData["VendedorId"] = new SelectList(_context.Vendedores, "Id", "Id", notaDeVenda.VendedorId);
             return View(notaDeVenda);
@@ -95,8 +92,7 @@ namespace EbertIan.Controllers
                 return NotFound();
             }
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Id", notaDeVenda.ClienteId);
-            ViewData["PagamentoComCartaoId"] = new SelectList(_context.PagamentosComCartao, "Id", "Id", notaDeVenda.PagamentoComCartaoId);
-            ViewData["PagamentoComChequeId"] = new SelectList(_context.PagamentosComCheque, "Id", "Id", notaDeVenda.PagamentoComChequeId);
+            ViewData["TipoDePagamentoId"] = new SelectList(_context.TiposDePagamento, "Id", "Id", notaDeVenda.TipoDePagamentoId);
             ViewData["TransportadoraId"] = new SelectList(_context.Transportadoras, "Id", "Id", notaDeVenda.TransportadoraId);
             ViewData["VendedorId"] = new SelectList(_context.Vendedores, "Id", "Id", notaDeVenda.VendedorId);
             return View(notaDeVenda);
@@ -107,7 +103,7 @@ namespace EbertIan.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Data,Tipo,ClienteId,VendedorId,TransportadoraId,PagamentoComChequeId,PagamentoComCartaoId")] NotaDeVenda notaDeVenda)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Data,Status,ClienteId,VendedorId,TransportadoraId,TipoDePagamentoId")] NotaDeVenda notaDeVenda)
         {
             if (id != notaDeVenda.Id)
             {
@@ -135,8 +131,7 @@ namespace EbertIan.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Id", notaDeVenda.ClienteId);
-            ViewData["PagamentoComCartaoId"] = new SelectList(_context.PagamentosComCartao, "Id", "Id", notaDeVenda.PagamentoComCartaoId);
-            ViewData["PagamentoComChequeId"] = new SelectList(_context.PagamentosComCheque, "Id", "Id", notaDeVenda.PagamentoComChequeId);
+            ViewData["TipoDePagamentoId"] = new SelectList(_context.TiposDePagamento, "Id", "Id", notaDeVenda.TipoDePagamentoId);
             ViewData["TransportadoraId"] = new SelectList(_context.Transportadoras, "Id", "Id", notaDeVenda.TransportadoraId);
             ViewData["VendedorId"] = new SelectList(_context.Vendedores, "Id", "Id", notaDeVenda.VendedorId);
             return View(notaDeVenda);
@@ -152,8 +147,7 @@ namespace EbertIan.Controllers
 
             var notaDeVenda = await _context.NotasDeVendas
                 .Include(n => n.Cliente)
-                .Include(n => n.PagamentoComCartao)
-                .Include(n => n.PagamentoComCheque)
+                .Include(n => n.TipoDePagamento)
                 .Include(n => n.Transportadora)
                 .Include(n => n.Vendedor)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -179,6 +173,50 @@ namespace EbertIan.Controllers
         private bool NotaDeVendaExists(int id)
         {
             return _context.NotasDeVendas.Any(e => e.Id == id);
+        }
+
+        // GET: NotasDeVendas/CancelarNota/5
+        public async Task<IActionResult> CancelarNota(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var notaDeVenda = await _context.NotasDeVendas.FindAsync(id);
+
+            if (notaDeVenda == null)
+            {
+                return NotFound();
+            }
+
+            notaDeVenda.Status = StatusNotaDeVenda.Cancelado;
+            _context.Update(notaDeVenda);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: NotasDeVendas/DevolverNota/5
+        public async Task<IActionResult> DevolverNota(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var notaDeVenda = await _context.NotasDeVendas.FindAsync(id);
+
+            if (notaDeVenda == null)
+            {
+                return NotFound();
+            }
+
+            notaDeVenda.Status = StatusNotaDeVenda.Devolvido;
+            _context.Update(notaDeVenda);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

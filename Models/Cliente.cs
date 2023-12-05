@@ -9,6 +9,5 @@ namespace EbertIan.Models
     {
         public int Id {get; set;}
         public string Nome {get; set;}
-        public ICollection<NotaDeVenda>? NotasDeVendas {get; set;}
     }
 }

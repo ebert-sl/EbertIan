@@ -1,4 +1,4 @@
-@model IEnumerable<EbertIan.Models.PagamentoComCartao>
+@model IEnumerable<EbertIan.Models.TipoDePagamento>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,12 +13,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NumeroDoCartao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bandeira)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.NomeDoCobrado)
             </th>
             <th>
@@ -30,12 +24,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroDoCartao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bandeira)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NomeDoCobrado)
             </td>

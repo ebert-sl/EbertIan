@@ -10,33 +10,25 @@ namespace EbertIan.Models
     public class NotaDeVenda
     {
         public int Id {get; set;}
-        public DateOnly Data {get; set;}
-        public bool Tipo {get; set;}
+        
+        [DataType(DataType.Date)]
+        public DateTime Data { get; set; }
+        public StatusNotaDeVenda Status {get; set;}
 
-        [ForeignKey("Cliente")]
+        [Display(Name = "Cliente")]
         public int ClienteId {get; set;}
-        public Cliente Cliente {get; set;}
+        public Cliente? Cliente {get; set;}
 
-        [ForeignKey("Vendedor")]
+        [Display(Name = "Vendedor")]
         public int VendedorId {get; set;}
-        public Vendedor Vendedor {get; set;}
+        public Vendedor? Vendedor {get; set;}
 
-        [ForeignKey("Transportadora")]
+        [Display(Name = "Transportadora")]
         public int TransportadoraId {get; set;}
         public Transportadora? Transportadora {get; set;}
 
-        public ICollection<Pagamento> Pagamentos {get; set;}
-
-        [Display(Name = "Pagamento com Cheque")]
-        [ForeignKey("PagamentoComCheque")]
-        public int PagamentoComChequeId {get; set;}
-        public PagamentoComCheque? PagamentoComCheque {get; set;}
-
-        [Display(Name = "Pagamento com Cartão")]
-        [ForeignKey("PagamentoComCartao")]
-        public int PagamentoComCartaoId {get; set;}
-        public PagamentoComCartao? PagamentoComCartao {get; set;}
-
-        public ICollection<Item> Itens {get; set;}
+        [Display(Name = "Tipo De Pagamento")]
+        public int TipoDePagamentoId {get; set;}
+        public TipoDePagamento? TipoDePagamento {get; set;}
     }
 }

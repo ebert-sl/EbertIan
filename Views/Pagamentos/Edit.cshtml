@@ -15,7 +15,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="DataLimite" class="control-label"></label>
-                <input asp-for="DataLimite" class="form-control" />
+                <input asp-for="DataLimite" class="form-control" type="date" asp-format="{0:yyyy-MM-dd}"/>
                 <span asp-validation-for="DataLimite" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -1,4 +1,4 @@
-@model EbertIan.Models.PagamentoComCheque
+@model EbertIan.Models.TipoDePagamento
 
 @{
     ViewData["Title"] = "Details";
@@ -7,15 +7,9 @@
 <h1>Details</h1>
 
 <div>
-    <h4>PagamentoComCheque</h4>
+    <h4>TipoDePagamento</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NomeDoBanco)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NomeDoBanco)
-        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.NomeDoCobrado)
         </dt>

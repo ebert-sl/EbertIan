@@ -54,7 +54,7 @@ namespace EbertIan.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NomeDoCobrado,InformacoesAdicionais,NomeDoBanco")] PagamentoComCheque pagamentoComCheque)
+        public async Task<IActionResult> Create([Bind("NomeDoBanco,Id,NomeDoCobrado,InformacoesAdicionais")] PagamentoComCheque pagamentoComCheque)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace EbertIan.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NomeDoCobrado,InformacoesAdicionais,NomeDoBanco")] PagamentoComCheque pagamentoComCheque)
+        public async Task<IActionResult> Edit(int id, [Bind("NomeDoBanco,Id,NomeDoCobrado,InformacoesAdicionais")] PagamentoComCheque pagamentoComCheque)
         {
             if (id != pagamentoComCheque.Id)
             {

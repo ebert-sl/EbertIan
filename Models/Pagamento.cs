@@ -11,8 +11,9 @@ namespace EbertIan.Models
     {
         public int Id {get; set;}
 
+        [DataType(DataType.Date)]
         [Display(Name = "Data Limite")]
-        public DateOnly DataLimite {get; set;}
+        public DateTime DataLimite {get; set;}
 
         public double Valor {get; set;}
         public bool Pago {get; set;}
@@ -20,6 +21,6 @@ namespace EbertIan.Models
         [Display(Name = "Nota de Venda")]
         [ForeignKey("NotaDeVenda")]
         public int NotaDeVendaId {get; set;}
-        public NotaDeVenda NotaDeVenda {get; set;}
+        public NotaDeVenda? NotaDeVenda {get; set;}
     }
 }

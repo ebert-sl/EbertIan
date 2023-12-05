@@ -10,22 +10,22 @@ using EbertIan.Models;
 
 namespace EbertIan.Controllers
 {
-    public class PagamentosComCartaoController : Controller
+    public class TiposDePagamentoController : Controller
     {
         private readonly MyDbContext _context;
 
-        public PagamentosComCartaoController(MyDbContext context)
+        public TiposDePagamentoController(MyDbContext context)
         {
             _context = context;
         }
 
-        // GET: PagamentosComCartao
+        // GET: TiposDePagamento
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PagamentosComCartao.ToListAsync());
+            return View(await _context.TiposDePagamento.ToListAsync());
         }
 
-        // GET: PagamentosComCartao/Details/5
+        // GET: TiposDePagamento/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace EbertIan.Controllers
                 return NotFound();
             }
 
-            var pagamentoComCartao = await _context.PagamentosComCartao
+            var tipoDePagamento = await _context.TiposDePagamento
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (pagamentoComCartao == null)
+            if (tipoDePagamento == null)
             {
                 return NotFound();
             }
 
-            return View(pagamentoComCartao);
+            return View(tipoDePagamento);
         }
 
-        // GET: PagamentosComCartao/Create
+        // GET: TiposDePagamento/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: PagamentosComCartao/Create
+        // POST: TiposDePagamento/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NumeroDoCartao,Bandeira,Id,NomeDoCobrado,InformacoesAdicionais")] PagamentoComCartao pagamentoComCartao)
+        public async Task<IActionResult> Create([Bind("Id,NomeDoCobrado,InformacoesAdicionais")] TipoDePagamento tipoDePagamento)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(pagamentoComCartao);
+                _context.Add(tipoDePagamento);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(pagamentoComCartao);
+            return View(tipoDePagamento);
         }
 
-        // GET: PagamentosComCartao/Edit/5
+        // GET: TiposDePagamento/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace EbertIan.Controllers
                 return NotFound();
             }
 
-            var pagamentoComCartao = await _context.PagamentosComCartao.FindAsync(id);
-            if (pagamentoComCartao == null)
+            var tipoDePagamento = await _context.TiposDePagamento.FindAsync(id);
+            if (tipoDePagamento == null)
             {
                 return NotFound();
             }
-            return View(pagamentoComCartao);
+            return View(tipoDePagamento);
         }
 
-        // POST: PagamentosComCartao/Edit/5
+        // POST: TiposDePagamento/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NumeroDoCartao,Bandeira,Id,NomeDoCobrado,InformacoesAdicionais")] PagamentoComCartao pagamentoComCartao)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NomeDoCobrado,InformacoesAdicionais")] TipoDePagamento tipoDePagamento)
         {
-            if (id != pagamentoComCartao.Id)
+            if (id != tipoDePagamento.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace EbertIan.Controllers
             {
                 try
                 {
-                    _context.Update(pagamentoComCartao);
+                    _context.Update(tipoDePagamento);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PagamentoComCartaoExists(pagamentoComCartao.Id))
+                    if (!TipoDePagamentoExists(tipoDePagamento.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace EbertIan.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(pagamentoComCartao);
+            return View(tipoDePagamento);
         }
 
-        // GET: PagamentosComCartao/Delete/5
+        // GET: TiposDePagamento/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace EbertIan.Controllers
                 return NotFound();
             }
 
-            var pagamentoComCartao = await _context.PagamentosComCartao
+            var tipoDePagamento = await _context.TiposDePagamento
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (pagamentoComCartao == null)
+            if (tipoDePagamento == null)
             {
                 return NotFound();
             }
 
-            return View(pagamentoComCartao);
+            return View(tipoDePagamento);
         }
 
-        // POST: PagamentosComCartao/Delete/5
+        // POST: TiposDePagamento/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var pagamentoComCartao = await _context.PagamentosComCartao.FindAsync(id);
-            _context.PagamentosComCartao.Remove(pagamentoComCartao);
+            var tipoDePagamento = await _context.TiposDePagamento.FindAsync(id);
+            _context.TiposDePagamento.Remove(tipoDePagamento);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PagamentoComCartaoExists(int id)
+        private bool TipoDePagamentoExists(int id)
         {
-            return _context.PagamentosComCartao.Any(e => e.Id == id);
+            return _context.TiposDePagamento.Any(e => e.Id == id);
         }
     }
 }
